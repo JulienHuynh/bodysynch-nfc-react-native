@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import NfcManager from 'react-native-nfc-manager';
 import Game from './Game';
+import NFCTest from './NFCTest';
 import AndroidPrompt from './AndroidPrompt';
 
 const App = () => {
@@ -56,7 +57,7 @@ const App = () => {
     );
   }
   return (
-     <Game />
+     <NFCTest/>
   );
 };
 
