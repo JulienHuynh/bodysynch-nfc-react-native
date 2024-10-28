@@ -1,38 +1,30 @@
 import { View } from 'react-native';
 import { Text, TextInput, HelperText, Menu } from 'react-native-paper';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { SignUpReducer } from '../../reducers/SignUpReducer.ts';
-import { SignUpState } from '../../types/SignUpState.ts';
+import React, { useContext, useEffect, useState } from 'react';
 import { isFormValidContext } from '../../contexts/IsFormValidContext.tsx';
-
-const initialSignUpState: SignUpState = {
-    age: 0,
-    weight: 0,
-    genre: '',
-    goal: '',
-    foundUs: '',
-    username: '',
-    email: '',
-    password: '',
-};
+import {useSignUp} from '../../contexts/SignUpContext.tsx';
 
 export default function PersonalInfos() {
     const [age, setAge] = useState('');
     const [weight, setWeight] = useState('');
     const [genre, setGenre] = useState('');
     const [menuVisible, setMenuVisible] = useState(false);
-
-    // Vérifier si les champs ont été modifiés
     const [ageTouched, setAgeTouched] = useState(false);
     const [weightTouched, setWeightTouched] = useState(false);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [state, dispatch] = useReducer(SignUpReducer, initialSignUpState);
+    const { state, dispatch } = useSignUp();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isFormValid, setIsFormValid] = useContext(isFormValidContext);
 
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
+
+    useEffect(() => {
+        setAge(state.age ? state.age.toString() : '');
+        setWeight(state.weight ? state.weight.toString() : '');
+        setGenre(state.genre);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         const checkFormValidity = () => {
@@ -43,8 +35,10 @@ export default function PersonalInfos() {
             );
         };
 
+        console.log(state);
+
         setIsFormValid(checkFormValidity());
-    }, [age, weight, genre, setIsFormValid]);
+    }, [age, weight, genre, state, setIsFormValid]);
 
     const handleSelect = (value: string) => {
         setGenre(value);
@@ -53,7 +47,12 @@ export default function PersonalInfos() {
     };
 
     const onChangeAge = (ageInput: string) => {
-        setAgeTouched(true); // Marque le champ comme "touché"
+        setAgeTouched(true);
+        if (ageInput === '') {
+            setAge('');
+            handleUserAge(0);
+            return;
+        }
         const numericValue = ageInput.replace(/[^0-9]/g, '');
         const ageInt = parseInt(numericValue, 10);
         setAge(numericValue);
@@ -63,7 +62,12 @@ export default function PersonalInfos() {
     };
 
     const onChangeWeight = (weightInput: string) => {
-        setWeightTouched(true); // Marque le champ comme "touché"
+        setWeightTouched(true);
+        if (weightInput === '') {
+            setWeight('');
+            handleUserWeight(0);
+            return;
+        }
         const numericValue = weightInput.replace(/[^0-9]/g, '');
         const weightInt = parseInt(numericValue, 10);
         setWeight(numericValue);
@@ -94,7 +98,7 @@ export default function PersonalInfos() {
 
             <TextInput
                 label="Votre Age"
-                value={age ? age : ''}
+                value={state.age ? state.age.toString() : ''}
                 onChangeText={onChangeAge}
                 keyboardType="numeric"
             />
@@ -109,7 +113,7 @@ export default function PersonalInfos() {
                     anchor={
                         <TextInput
                             label="Votre Genre"
-                            value={genre}
+                            value={state.genre}
                             onPressIn={openMenu}
                             editable={false}
                         />
@@ -123,7 +127,7 @@ export default function PersonalInfos() {
 
             <TextInput
                 label="Votre Poids"
-                value={weight ? weight : ''}
+                value={state.weight ? state.weight.toString() : ''}
                 onChangeText={onChangeWeight}
                 keyboardType="numeric"
             />

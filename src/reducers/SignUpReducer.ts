@@ -1,36 +1,5 @@
 import { SignUpState } from '../types/SignUpState';
-
-type UserAgeAction = {
-    type: 'USER_AGE_TYPE',
-    age: number,
-};
-
-type UserWeightAction = {
-    type: 'USER_WEIGHT_TYPE',
-    weight: number,
-};
-
-type UserGenreAction = {
-    type: 'USER_GENRE_TYPE',
-    genre: string,
-};
-
-type UserGoalAction = {
-    type: 'USER_GOALS_TYPE',
-    goal: string,
-};
-
-type HowYouFoundUsAction = {
-    type: 'FOUND_US_TYPE',
-    foundUs: string,
-};
-
-type UserCredentialsAction = {
-    type: 'USER_CREDENTIALS_TYPE',
-    username: string,
-    email: string,
-    password: string,
-};
+import {UserAgeAction, UserGenreAction, UserGoalAction, UserWeightAction, HowYouFoundUsAction, UserCredentialsAction} from '../types/SignUpActions.ts';
 
 type InscriptionStep = UserAgeAction | UserWeightAction | UserGenreAction | UserGoalAction | HowYouFoundUsAction | UserCredentialsAction;
 
