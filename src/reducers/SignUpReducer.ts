@@ -1,7 +1,7 @@
 import { SignUpState } from '../types/SignUpState';
-import {UserAgeAction, UserGenreAction, UserGoalAction, UserWeightAction, HowYouFoundUsAction, UserCredentialsAction} from '../types/SignUpActions.ts';
+import {UserAgeAction, UserGenreAction, UserGoalAction, RemoveUserGoalAction, UserWeightAction, HowYouFoundUsAction, UserCredentialsAction} from '../types/SignUpActions.ts';
 
-type InscriptionStep = UserAgeAction | UserWeightAction | UserGenreAction | UserGoalAction | HowYouFoundUsAction | UserCredentialsAction;
+type InscriptionStep = UserAgeAction | UserWeightAction | UserGenreAction | UserGoalAction | RemoveUserGoalAction | HowYouFoundUsAction | UserCredentialsAction;
 
 export const SignUpReducer = (state: SignUpState, action: InscriptionStep): SignUpState => {
     switch (action.type) {
@@ -23,7 +23,12 @@ export const SignUpReducer = (state: SignUpState, action: InscriptionStep): Sign
         case 'USER_GOALS_TYPE':
             return {
                 ...state,
-                goal: action.goal,
+                goals: [...state.goals, action.goal],
+            };
+        case 'REMOVE_GOAL_TYPE':
+            return {
+                ...state,
+                goals: state.goals.filter((goal) => goal !== action.goal),
             };
         case 'FOUND_US_TYPE':
             return {

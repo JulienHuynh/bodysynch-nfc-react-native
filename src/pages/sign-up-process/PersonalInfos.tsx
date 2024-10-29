@@ -1,30 +1,23 @@
-import { View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import { Text, TextInput, HelperText, Menu } from 'react-native-paper';
 import React, { useContext, useEffect, useState } from 'react';
 import { isFormValidContext } from '../../contexts/IsFormValidContext.tsx';
 import {useSignUp} from '../../contexts/SignUpContext.tsx';
 
 export default function PersonalInfos() {
-    const [age, setAge] = useState('');
-    const [weight, setWeight] = useState('');
-    const [genre, setGenre] = useState('');
+    const { state, dispatch } = useSignUp();
+    const [age, setAge] = useState(state.age.toString());
+    const [weight, setWeight] = useState(state.weight.toString());
+    const [genre, setGenre] = useState(state.genre);
     const [menuVisible, setMenuVisible] = useState(false);
     const [ageTouched, setAgeTouched] = useState(false);
     const [weightTouched, setWeightTouched] = useState(false);
 
-    const { state, dispatch } = useSignUp();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isFormValid, setIsFormValid] = useContext(isFormValidContext);
 
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
-
-    useEffect(() => {
-        setAge(state.age ? state.age.toString() : '');
-        setWeight(state.weight ? state.weight.toString() : '');
-        setGenre(state.genre);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         const checkFormValidity = () => {
@@ -34,8 +27,6 @@ export default function PersonalInfos() {
                 genre !== ''
             );
         };
-
-        console.log(state);
 
         setIsFormValid(checkFormValidity());
     }, [age, weight, genre, state, setIsFormValid]);
@@ -93,8 +84,8 @@ export default function PersonalInfos() {
     };
 
     return (
-        <View style={{ padding: 16 }}>
-            <Text variant="titleLarge">Informations personnelles</Text>
+        <View>
+            <Text variant="titleLarge" style={styles.title}>Informations personnelles</Text>
 
             <TextInput
                 label="Votre Age"
@@ -137,3 +128,15 @@ export default function PersonalInfos() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    title: {
+        marginBottom: 50,
+        textAlign: 'center',
+    },
+    loaderContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});

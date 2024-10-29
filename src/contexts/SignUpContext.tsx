@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { SignUpReducer } from '../reducers/SignUpReducer';
 import { SignUpState } from '../types/SignUpState';
-import {UserAgeAction, UserGenreAction, UserGoalAction, UserWeightAction, HowYouFoundUsAction, UserCredentialsAction} from '../types/SignUpActions.ts';
+import {UserAgeAction, UserGenreAction, UserGoalAction, RemoveUserGoalAction, UserWeightAction, HowYouFoundUsAction, UserCredentialsAction} from '../types/SignUpActions.ts';
 
 export type InscriptionStep =
     | UserAgeAction
     | UserWeightAction
     | UserGenreAction
     | UserGoalAction
+    | RemoveUserGoalAction
     | HowYouFoundUsAction
     | UserCredentialsAction;
 
@@ -15,7 +16,7 @@ const initialSignUpState: SignUpState = {
     age: 0,
     weight: 0,
     genre: '',
-    goal: '',
+    goals: [],
     foundUs: '',
     username: '',
     email: '',

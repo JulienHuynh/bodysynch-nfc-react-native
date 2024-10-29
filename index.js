@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, View} from 'react-native';
 import {name as appName} from './app.json';
 import {DefaultTheme, PaperProvider} from 'react-native-paper';
 import AppTemp from './src/AppTemp';

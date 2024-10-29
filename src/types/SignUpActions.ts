@@ -15,7 +15,12 @@ export type UserGenreAction = {
 
 export type UserGoalAction = {
     type: 'USER_GOALS_TYPE',
-    goal: string,
+    goal: number,
+};
+
+export type RemoveUserGoalAction = {
+    type: 'REMOVE_GOAL_TYPE',
+    goal: number,
 };
 
 export type HowYouFoundUsAction = {

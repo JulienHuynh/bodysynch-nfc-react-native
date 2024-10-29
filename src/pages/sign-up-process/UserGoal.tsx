@@ -1,17 +1,21 @@
-import { View } from 'react-native';
-import { Text, Chip } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
 import React from 'react';
+import UserGoalCardList from '../../components/organisms/UserGoalCardList/UserGoalCardList.tsx';
 
 export default function UserGoal() {
 
     return (
-        <View style={{ padding: 16 }}>
-            <Text variant="titleLarge">Mes objectifs</Text>
-
-            <Chip icon="information" onPress={() => console.log('Pressed')}>Example Chip</Chip>
-            <Chip icon="information" onPress={() => console.log('Pressed')}>Example Chip</Chip>
-            <Chip icon="information" onPress={() => console.log('Pressed')}>Example Chip</Chip>
-            <Chip icon="information" onPress={() => console.log('Pressed')}>Example Chip</Chip>
+        <View >
+            <Text variant="titleLarge" style={styles.title}>Mes objectifs</Text>
+            <UserGoalCardList />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    title: {
+        marginBottom: 50,
+        textAlign: 'center',
+    },
+});

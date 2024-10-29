@@ -5,6 +5,7 @@ import {Button, SegmentedButtons} from 'react-native-paper';
 import IsFormValidProvider, {isFormValidContext} from '../../contexts/IsFormValidContext.tsx';
 import UserGoal from './UserGoal.tsx';
 import {SignUpProvider} from '../../contexts/SignUpContext.tsx';
+import globalStyles from '../../styles/styles.ts';
 
 export default function SignUp() {
     return (
@@ -29,7 +30,7 @@ function InnerSignUp() {
     };
 
     return (
-        <View style={{ padding: 16 }}>
+        <View style={globalStyles.pageBackground}>
             { currentPage === '1' && <PersonalInfos /> }
             { currentPage === '2' && <UserGoal /> }
             <SegmentedButtons

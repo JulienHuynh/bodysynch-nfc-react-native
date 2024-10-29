@@ -2,7 +2,7 @@ export type SignUpState = {
     age: number;
     weight: number;
     genre: string;
-    goal: string;
+    goals: Array<number>;
     foundUs: string;
     username: string;
     email: string;
